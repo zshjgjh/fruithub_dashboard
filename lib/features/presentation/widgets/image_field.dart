@@ -34,6 +34,7 @@ class _ImageFieldState extends State<ImageField> {
             });
     },
           child: Container(
+            clipBehavior: Clip.hardEdge,
           width: double.infinity,
           decoration:BoxDecoration(
             border: Border.all(),

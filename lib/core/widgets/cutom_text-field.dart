@@ -31,6 +31,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
   bool obSecureText=true;
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: (value){
+        if(value!.isEmpty){
+          return 'field is required';
+        }
+      },
       maxLines:widget.maxLines ,
       keyboardType: widget.textInputType,
       obscureText:widget.hiddenText!?obSecureText:false,
