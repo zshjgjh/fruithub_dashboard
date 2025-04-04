@@ -1,32 +1,23 @@
-//
-//
-// import 'dart:html' as html;
-// import 'dart:typed_data';
-//
-// import 'package:new_projects/core/utilis/services/supabase_storage_service.dart';
-// import 'package:path/path.dart' as b;
-//
-//
-// abstract class CloudStorage{
-//
-//   Future<void> uploadFile({required String path, required html.File file,}) ;
-//
-//
-// }
-//
-//
-// class CloudStorageService implements CloudStorage{
-//   @override
-//   Future<String> uploadFile({required String path, required html.File file}) async {// required File for and/ios
-//
-//    String fileName= b.basename(file.name);// use path library to get file name
-//    String extensionName=b.extension(file.name);// use path library to get file extension like png
-//    var fileReference=storage.child('$path/$fileName.$extensionName');//define path to store in fire storage
-//
-//    await fileReference.putData(file as Uint8List);//.putFile(file) for and/ios// store file
-//    String fileUrl=await fileReference.getDownloadURL();// get string url for file location
-//    return fileUrl;
-//   }
-//
-//
-// }
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' as b;
+
+abstract class Storage {
+  Future<String> uploadFile(File file,String path);
+}
+
+class CloudStorageService implements Storage{
+  @override
+  Future<String> uploadFile(File file,String path) async { // path represents bucket or folder name in cloud like images
+    final storageRef = FirebaseStorage.instance.ref();// create object from storage service with refrence
+   String  fileName=b.basename(file.path);// get file name
+   String fileExtension=b.extension(file.path);//get fille extension
+   var fileRef=storageRef.child('$path/$fileName.$fileExtension');//create ref to put file with full path
+    await fileRef.putFile(file);// put file in file refrence
+    var fileUrl=fileRef.getDownloadURL();// get url to download file
+    return fileUrl;
+
+  }
+
+}
