@@ -2,12 +2,21 @@ import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fruitshub_dashboard/core/utilis/constants.dart';
+import 'package:fruitshub_dashboard/core/utilis/services/supabase_storage_service.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/utilis/app_routers.dart';
 import 'core/utilis/styles.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  SupaBaseStorageService.initSupabase();// initialize supa
+  SupaBaseStorageService.createBucket(kImagesStorage);// create bucket
   runApp(
       DevicePreview(
     enabled: !kReleaseMode,

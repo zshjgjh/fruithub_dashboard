@@ -1,24 +1,10 @@
-import 'dart:io' show File;
-import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+ import 'dart:io';
+ import 'package:path/path.dart' as b;
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-
-import '../../errors/server_failure.dart';
 import '../constants.dart';
-import 'package:path/path.dart' as b;
+import 'fire_base/cloud_storage_service.dart';
 
-abstract class SupaBaseStorage {
-  Future<void> uploadFile({
-    required String bucketName,
-    required File file,
-  });
-  Future<void> addData(
-      {required String path, required Map<String, dynamic> data, String? id});
-  Future<dynamic> getData({required String path, String? id});
-}
-
-class SupaBaseStorageService implements SupaBaseStorage {
+class SupaBaseStorageService implements Storage{
   static late Supabase supabase;
 
   static initSupabase() async {
@@ -26,56 +12,38 @@ class SupaBaseStorageService implements SupaBaseStorage {
       url: kSupabaseUrl,
       anonKey: kSupabaseKey, //we used secret key in API setting to be able to store files
     );
-  }
+  }// call in main
+
 
   static createBucket(String bucketName) async {
-    bool isBucketExist = false;
-    var buckets = await supabase.client.storage.listBuckets();
-    for (var bucket in buckets) {
-      if (bucket.id == bucketName) {
-        isBucketExist = true;
-        break;
-      }
+    final List<Bucket> buckets = await supabase.client
+        .storage
+        .listBuckets();
+    for( var bucket in buckets){
+    if(bucket.id==bucketName){
+      break;
+    }else{
+      final String bucketId = await supabase.client
+          .storage
+          .createBucket(bucketName);
     }
-    if (isBucketExist == false) {
-      await supabase.client.storage
-          .createBucket(bucketName); //create bucket or folder
     }
-  }
+
+  }//call in main
 
   @override
-  Future<String> uploadFile({required String bucketName, required File file,}) async {
+  Future<String> uploadFile(File file, String bucketName) async {
+    String  fileName=b.basename(file.path);// get file name
+    String fileExtension=b.extension(file.path);//get file extension
 
-    String fileName =
-        b.basename(file.path); // use path library to get file name
-    String extensionName = b.extension(
-        file.path); // use path library to get file extension like png
+     var uploadedFile = await supabase.client.storage.from(bucketName).
+    upload('$bucketName/$fileName.$fileExtension',file);// store file in bucket
 
-    try {
-      var uploadedFile = await supabase.client.storage
-          .from(bucketName)
-          .upload('$bucketName/$fileName$extensionName', file); // store file in bucket
+     var fileUrl= supabase.client
+        .storage
+        .from(bucketName)
+        .getPublicUrl('$bucketName/$fileName.$fileExtension');// download file url
 
-      String publicUrl = supabase.client.storage.from(bucketName).getPublicUrl(
-          '$bucketName/$fileName$extensionName'); // get file public url
-
-      return publicUrl;
-    } catch (e) {
-      print(e.toString());
-      print('fail');
-
-      return e.toString();
-    }
-  }
-
-  @override
-  Future<void> addData({required String path, required Map<String, dynamic> data, String? id}) async {
-    await supabase.client.from(path).insert(data);
-  }
-
-  @override
-  Future<dynamic> getData({required String path, String? id}) async {
-    var data = await supabase.client.from(path).select();
-    return data;
+    return fileUrl;
   }
 }

@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:fruitshub_dashboard/domain/entities/review_entity.dart';
+
 class ProductEntity{
   final String name;
   final String code;
   final String description;
   final bool isFeatured;
-  final bool isOrganic;
+  final bool isOrganig;
   final int expMonthes;
   final int numOfCalories;
   final int unitAmount;
@@ -13,14 +15,15 @@ class ProductEntity{
   final num avgRating;
   final num price;
   final File imageFile;
-  final String? imageUrl;
+  final List<ReviewEntity> reviews;
+  String? imageUrl;
 
   ProductEntity({
     required this.name,
     required this.code,
     required this.description,
     required this.isFeatured,
-    required this.isOrganic,
+    required this.isOrganig,
     required this.expMonthes,
     required this.numOfCalories,
     required this.unitAmount,
@@ -28,6 +31,7 @@ class ProductEntity{
     required this.avgRating,
     required this.price,
     required this.imageFile,
+    required this.reviews,
     this.imageUrl,
   });
 

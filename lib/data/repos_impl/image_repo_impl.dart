@@ -11,13 +11,15 @@ class ImageRepoImpl implements ImageRepo{
   final CloudStorageService cloudStorageService;
 
   ImageRepoImpl({required this.cloudStorageService});
+
+
   @override
   Future<Either<Failure, String>> addImage(File image) async {
     try {
       String url=   await cloudStorageService.uploadFile(image, kImagesStorage);
       return Right(url);
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return Left(ServerFailure(e.toString()));
     }
   }
 
