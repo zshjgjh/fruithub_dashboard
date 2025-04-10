@@ -1,8 +1,8 @@
  import 'dart:io';
  import 'package:path/path.dart' as b;
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../constants.dart';
-import 'fire_base/cloud_storage_service.dart';
+import '../../constants.dart';
+import '../fire_base/cloud_storage_service.dart';
 
 class SupaBaseStorageService implements Storage{
   static late Supabase supabase;
