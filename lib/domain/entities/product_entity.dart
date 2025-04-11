@@ -13,8 +13,9 @@ class ProductEntity{
   final int unitAmount;
   final int ratingCount;
   final num avgRating;
+  final int sellingCount;
   final num price;
-  final File imageFile;
+  File? imageFile;
   final List<ReviewEntity> reviews;
   String? imageUrl;
 
@@ -29,8 +30,9 @@ class ProductEntity{
     required this.unitAmount,
     required this.ratingCount,
     required this.avgRating,
+    required this.sellingCount,
     required this.price,
-    required this.imageFile,
+    this.imageFile,
     required this.reviews,
     this.imageUrl,
   });

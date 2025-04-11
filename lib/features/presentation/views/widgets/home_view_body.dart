@@ -191,7 +191,8 @@ AutovalidateMode autovalidateMode=AutovalidateMode.disabled;
                                 avgRating: avgRating!,
                                 price: price!,
                                 imageFile: imageFile!,
-                                reviews: []);
+                                reviews: [],
+                                sellingCount:0);
 
                             BlocProvider.of<AddProductCubit>(context).addProduct(productEntity);
                           }else{

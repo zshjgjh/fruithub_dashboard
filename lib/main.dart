@@ -15,8 +15,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  SupaBaseStorageService.initSupabase();// initialize supa
-  SupaBaseStorageService.createBucket(kImagesStorage);// create bucket
+ await SupaBaseStorageService.initSupabase();// initialize supa
+  await SupaBaseStorageService.createBucket(kImagesStorage);// create bucket
   runApp(
       DevicePreview(
     enabled: !kReleaseMode,

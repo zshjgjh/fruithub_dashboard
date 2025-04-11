@@ -17,7 +17,6 @@ class ProductModel{
   final int sellingCount;
   final num avgRating;
   final num price;
-  final File imageFile;
   final List<ReviewModel> reviews;
   String? imageUrl;
 
@@ -32,9 +31,8 @@ class ProductModel{
     required this.unitAmount,
     required this.ratingCount,
     required this.avgRating,
-    this.sellingCount=0,// no need to be in product entity
+    required this.sellingCount,// no need to be in product entity
     required this.price,
-    required this.imageFile,
     required this.reviews,
     this.imageUrl,
   });
@@ -50,8 +48,8 @@ class ProductModel{
        unitAmount: productEntity.numOfCalories,
        ratingCount: productEntity.ratingCount,
        avgRating: productEntity.avgRating,
+       sellingCount: productEntity.sellingCount,
        price: productEntity.price,
-       imageFile: productEntity.imageFile, 
        reviews: productEntity.reviews.map((e) => ReviewModel.fromEntity(e)).toList()//convert every review entity to model then to list
    );
  }///convert product entity to model
@@ -70,7 +68,6 @@ class ProductModel{
       avgRating: json['avgRating'],
       ratingCount: json['ratingCount'],
       sellingCount: json['sellingCount'],
-      imageFile: json['imageFile'],
       imageUrl: json['image'],
       reviews: json['reviews'] != null ?
       List<ReviewModel>.from(
@@ -84,7 +81,6 @@ class ProductModel{
         description: description,
         code: code,
         isFeatured: isFeatured,
-        imageFile: imageFile,
         imageUrl: imageUrl,
         isOrganig: isOrganig,
         expMonthes: expMonthes,
@@ -92,6 +88,7 @@ class ProductModel{
         unitAmount: unitAmount,
         ratingCount: ratingCount,
         avgRating: avgRating,
+        sellingCount: sellingCount,
         reviews: reviews.map((e) => e.toEntity()).toList()
     );
   }
@@ -109,7 +106,6 @@ class ProductModel{
      'avgRating':avgRating,
      'ratingCount':ratingCount,
      'sellingCount':sellingCount,
-     'imageFile':imageFile,
      'imageUrl':imageUrl,
      'reviews':reviews.map((e) => e.toJason()).toList()// convert every review model to json than to list
 

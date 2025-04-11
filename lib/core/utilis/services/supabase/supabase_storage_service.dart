@@ -16,17 +16,17 @@ class SupaBaseStorageService implements Storage{
 
 
   static createBucket(String bucketName) async {
-    final List<Bucket> buckets = await supabase.client
-        .storage
-        .listBuckets();
-    for( var bucket in buckets){
-    if(bucket.id==bucketName){
-      break;
-    }else{
-      final String bucketId = await supabase.client
-          .storage
-          .createBucket(bucketName);
+    bool isBucketExist = false;
+    var buckets = await supabase.client.storage.listBuckets();
+    for (var bucket in buckets) {
+      if (bucket.id == bucketName) {
+        isBucketExist = true;
+        break;
+      }
     }
+    if (isBucketExist == false) {
+      await supabase.client.storage
+          .createBucket(bucketName); //create bucket or folder
     }
 
   }//call in main
