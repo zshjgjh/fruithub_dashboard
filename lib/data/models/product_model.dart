@@ -17,7 +17,7 @@ class ProductModel{
   final int sellingCount;
   final num avgRating;
   final num price;
-  final List<ReviewModel> reviews;
+  //final List<ReviewModel> reviews;
   String? imageUrl;
 
   ProductModel({
@@ -33,7 +33,7 @@ class ProductModel{
     required this.avgRating,
     required this.sellingCount,// no need to be in product entity
     required this.price,
-    required this.reviews,
+  //  required this.reviews,
     this.imageUrl,
   });
  factory ProductModel.fromEntity(ProductEntity productEntity){
@@ -50,7 +50,7 @@ class ProductModel{
        avgRating: productEntity.avgRating,
        sellingCount: productEntity.sellingCount,
        price: productEntity.price,
-       reviews: productEntity.reviews.map((e) => ReviewModel.fromEntity(e)).toList()//convert every review entity to model then to list
+     //  reviews: productEntity.reviews.map((e) => ReviewModel.fromEntity(e)).toList()//convert every review entity to model then to list
    );
  }///convert product entity to model
 
@@ -69,10 +69,11 @@ class ProductModel{
       ratingCount: json['ratingCount'],
       sellingCount: json['sellingCount'],
       imageUrl: json['image'],
-      reviews: json['reviews'] != null ?
-      List<ReviewModel>.from(
-          json['reviews'].map((e) => ReviewModel.fromJson(json)))
-          : [],);
+     // reviews: json['reviews'] != null ?
+    //  List<ReviewModel>.from(
+    //      json['reviews'].map((e) => ReviewModel.fromJson(json)))
+      //    : [],
+            );
   }
   ProductEntity toEntity(){
     return ProductEntity(
@@ -89,7 +90,7 @@ class ProductModel{
         ratingCount: ratingCount,
         avgRating: avgRating,
         sellingCount: sellingCount,
-        reviews: reviews.map((e) => e.toEntity()).toList()
+     //   reviews: reviews.map((e) => e.toEntity()).toList()
     );
   }
  toJason(){// same as to map
@@ -107,7 +108,7 @@ class ProductModel{
      'ratingCount':ratingCount,
      'sellingCount':sellingCount,
      'imageUrl':imageUrl,
-     'reviews':reviews.map((e) => e.toJason()).toList()// convert every review model to json than to list
+    // 'reviews':reviews.map((e) => e.toJason()).toList()// convert every review model to json than to list
 
    }; //to save data in fire storage as json
  }

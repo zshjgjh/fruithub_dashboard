@@ -51,12 +51,14 @@ AutovalidateMode autovalidateMode=AutovalidateMode.disabled;
 
        });
        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.errMessage)));
+
      }else{
        isLoading=false;
        setState(() {
 
        });
        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Success to add product')));
+
      }
   },
   builder: (context, state) {
@@ -191,7 +193,7 @@ AutovalidateMode autovalidateMode=AutovalidateMode.disabled;
                                 avgRating: avgRating!,
                                 price: price!,
                                 imageFile: imageFile!,
-                                reviews: [],
+                              //  reviews: [],
                                 sellingCount:0);
 
                             BlocProvider.of<AddProductCubit>(context).addProduct(productEntity);

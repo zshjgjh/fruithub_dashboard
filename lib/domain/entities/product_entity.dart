@@ -16,7 +16,7 @@ class ProductEntity{
   final int sellingCount;
   final num price;
   File? imageFile;
-  final List<ReviewEntity> reviews;
+ // final List<ReviewEntity> reviews;
   String? imageUrl;
 
   ProductEntity({
@@ -33,7 +33,7 @@ class ProductEntity{
     required this.sellingCount,
     required this.price,
     this.imageFile,
-    required this.reviews,
+   // required this.reviews,
     this.imageUrl,
   });
 

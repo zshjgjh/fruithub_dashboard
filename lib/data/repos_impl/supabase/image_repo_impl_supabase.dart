@@ -8,13 +8,10 @@ import '../../../core/utilis/constants.dart';
 import '../../../core/utilis/services/fire_base/cloud_storage_service.dart';
 import '../../../domain/repos/image_repo.dart';
 
-class ImageRepoImpl implements ImageRepo{
+class ImageRepoImplSupabase implements ImageRepo{
   final SupaBaseStorageService supaBaseStorageService;
 
-  ImageRepoImpl({required this.supaBaseStorageService});
-
-
-
+  ImageRepoImplSupabase({required this.supaBaseStorageService});
 
   @override
   Future<Either<Failure, String>> addImage(File image) async {
