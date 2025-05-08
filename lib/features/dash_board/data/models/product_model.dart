@@ -1,9 +1,6 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:fruitshub_dashboard/data/models/review-model.dart';
-import 'package:fruitshub_dashboard/domain/entities/product_entity.dart';
-
 class ProductModel{
   final String name;
   final String code;

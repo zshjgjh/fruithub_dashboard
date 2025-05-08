@@ -4,15 +4,16 @@ import 'package:fruitshub_dashboard/core/errors/server_failure.dart';
 import 'package:fruitshub_dashboard/core/utilis/constants.dart';
 import 'package:fruitshub_dashboard/core/utilis/services/supabase/subabase_data_base_service.dart';
 
-import 'package:fruitshub_dashboard/domain/entities/product_entity.dart';
 
+
+import '../../../domain/entities/product_entity.dart';
 import '../../../domain/repos/product_repo.dart';
 import '../../models/product_model.dart';
 
-class ProductRepoImplSupabase implements ProductRepo{
+class ProductRepoImpl implements ProductRepo{
   final SupaBaseDataBase supabaseDataBase;
 
-  ProductRepoImplSupabase({required this.supabaseDataBase});
+  ProductRepoImpl({required this.supabaseDataBase});
   @override
   Future<Either<Failure, void>> addProduct(ProductEntity productEntity) async {
   try {

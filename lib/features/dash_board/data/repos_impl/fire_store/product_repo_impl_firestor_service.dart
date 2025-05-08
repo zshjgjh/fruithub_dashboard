@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:fruitshub_dashboard/core/errors/server_failure.dart';
 import 'package:fruitshub_dashboard/core/utilis/constants.dart';
 import 'package:fruitshub_dashboard/core/utilis/services/fire_base/fire_storage_service.dart';
-import 'package:fruitshub_dashboard/domain/entities/product_entity.dart';
-import 'package:fruitshub_dashboard/domain/repos/product_repo.dart';
 
+import '../../../domain/entities/product_entity.dart';
+import '../../../domain/repos/product_repo.dart';
 import '../../models/product_model.dart';
 
 class ProductRepoImpl implements ProductRepo{
